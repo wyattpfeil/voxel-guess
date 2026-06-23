@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voxel Guess</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <section id="joinView" class="join-card card">
+    <div class="logo-cube">🧊</div>
+    <h1>Voxel Guess</h1>
+    <p class="subtitle">Look at the 3D model, then guess the secret word!</p>
+    <form id="joinForm">
+      <div class="field">
+        <label for="nameInput">Your first name</label>
+        <input id="nameInput" autocomplete="name" maxlength="22" placeholder="Enter your name" required>
+      </div>
+      <p id="joinError" class="error" aria-live="polite"></p>
+      <button class="btn" type="submit">Join game</button>
+    </form>
+  </section>
+
+  <main id="gameView" class="shell hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-cube">🧊</div>
+        <div><h1>Voxel Guess</h1><div id="roundLabel" class="subtitle">Waiting for a round</div></div>
+      </div>
+      <div id="youBadge" class="badge"></div>
+    </header>
+
+    <div class="game-grid">
+      <section class="main-panel">
+        <div class="status-card card">
+          <div class="round-row">
+            <div><div class="kicker">Secret word</div><div id="hint" class="hint">Waiting for the teacher…</div></div>
+            <div class="timer-wrap"><div id="timer" class="timer">--:--</div></div>
+          </div>
+          <div class="progress"><div id="progressBar"></div></div>
+          <div id="answerReveal" class="answer-reveal hidden"></div>
+        </div>
+
+        <div class="chat-card card">
+          <div class="chat-header"><strong>Guesses</strong><span id="chatStatus" class="muted">Type your guess below</span></div>
+          <div id="messages" class="messages" aria-live="polite"></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" maxlength="100" autocomplete="off" placeholder="Type a guess…">
+            <button id="sendButton" class="btn secondary" type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <aside class="score-card card">
+        <h2>Leaderboard</h2>
+        <div id="scoreList" class="score-list"></div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="toasts" class="toast-area" aria-live="assertive"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>

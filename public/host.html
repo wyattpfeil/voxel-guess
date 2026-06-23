@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voxel Guess — Teacher</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="logo-cube">🧊</div><div><h1>Voxel Guess</h1><div class="subtitle">Teacher controls</div></div></div>
+      <div id="connectionBadge" class="badge">Connecting…</div>
+    </header>
+
+    <section id="authError" class="join-card card hidden">
+      <h2>Teacher link not recognized</h2>
+      <p class="subtitle">Open the exact teacher URL printed in the server window.</p>
+    </section>
+
+    <div id="hostApp" class="host-grid hidden">
+      <aside>
+        <section class="control-card card">
+          <div class="kicker">Student join link</div>
+          <h2>Get everyone connected</h2>
+          <div class="join-link"><input id="joinLink" readonly><button id="copyLink" class="btn secondary">Copy</button></div>
+          <select id="joinLinkChoices" class="hidden" style="margin-top:8px" aria-label="Other available network links"></select>
+          <p id="linkHelp" class="muted" style="margin:10px 0 0">Students must be on the same Wi-Fi as this computer.</p>
+        </section>
+
+        <section class="control-card card">
+          <div class="kicker">New round</div>
+          <h2>Set the secret word</h2>
+          <form id="roundForm">
+            <div class="field"><label for="wordInput">Word or phrase</label><input id="wordInput" maxlength="60" autocomplete="off" placeholder="Example: treasure chest" required></div>
+            <div class="field"><label for="durationInput">Round time</label>
+              <select id="durationInput"><option value="60">1 minute</option><option value="90">1½ minutes</option><option value="120" selected>2 minutes</option><option value="180">3 minutes</option><option value="300">5 minutes</option></select>
+            </div>
+            <button class="btn" type="submit">Start round</button>
+          </form>
+          <p id="roundError" class="error"></p>
+          <div class="word-bank">
+            <button id="randomEasy" class="btn ghost small" type="button">Random easy</button>
+            <button id="randomChallenge" class="btn ghost small" type="button">Random challenge</button>
+          </div>
+        </section>
+
+        <section class="control-card card">
+          <div class="kicker">Round controls</div>
+          <div class="button-row">
+            <button id="revealButton" class="btn warning">Reveal letter</button>
+            <button id="endButton" class="btn danger">End round</button>
+          </div>
+          <hr style="border:0;border-top:1px solid rgba(255,255,255,.1);margin:16px 0">
+          <div class="button-row">
+            <button id="clearChatButton" class="btn ghost small">Clear chat</button>
+            <button id="resetScoresButton" class="btn ghost small">Reset scores</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="main-panel">
+        <div class="status-card card">
+          <div class="round-row">
+            <div><div class="kicker">Current answer</div><div id="hostWord" class="host-word">No round yet</div></div>
+            <div id="hostTimer" class="timer">--:--</div>
+          </div>
+          <div id="hostHint" class="hint">Waiting…</div>
+          <div class="progress"><div id="hostProgress"></div></div>
+        </div>
+
+        <div class="game-grid" style="grid-template-columns:minmax(0,1fr) 280px">
+          <div class="chat-card card">
+            <div class="chat-header"><strong>Live guesses</strong><span class="muted">Correct guesses are hidden</span></div>
+            <div id="hostMessages" class="messages"></div>
+          </div>
+          <aside class="score-card card">
+            <h2>Students</h2>
+            <div id="playerAdmin" class="player-admin"></div>
+          </aside>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="toasts" class="toast-area"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/host.js"></script>
+</body>
+</html>
